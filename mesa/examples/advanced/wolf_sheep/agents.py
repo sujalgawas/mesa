@@ -79,7 +79,7 @@ class Sheep(Animal):
         wolf_pos = self.model.grid.wolf_pos.data[neighbor_y[:, None], neighbor_x]
         grass_pos = self.model.grid.grass_pos.data[neighbor_y[:, None], neighbor_x]
 
-        wolf_pos[[0, 0, 1, 2, 2], [0, 2, 1, 0, 2]] = 1
+        wolf_pos[[0, 0, 1, 2, 2], [0, 2, 1, 2, 0]] = 1
         coords_without_wolves = wolf_pos == 0
         # If all surrounding cells have wolves, stay put
         safe_coords = neighbors[coords_without_wolves]
@@ -87,7 +87,7 @@ class Sheep(Animal):
             return
 
         # Among safe cells, prefer those with grown grass
-        grass_pos[[0, 0, 1, 2, 2], [0, 2, 1, 0, 2]] = 0
+        grass_pos[[0, 0, 1, 2, 2], [0, 2, 1, 2, 0]] = 0
         coords_with_grass = neighbors[
             np.logical_and(coords_without_wolves, grass_pos == 1)
         ]
